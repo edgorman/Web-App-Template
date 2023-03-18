@@ -5,3 +5,6 @@ from sqlmodel import SQLModel, Field
 class Fruit(SQLModel, table=True):
     name: str = Field(primary_key=True)
     amount: Optional[int] = None
+
+    def update(self, other):
+        self.amount = other.amount

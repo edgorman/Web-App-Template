@@ -7,6 +7,11 @@ services:
       - 6379:6379
 
   database:
+    build:
+      context:
+        database
+      dockerfile:
+        Dockerfile
     image: postgres:15-alpine
     volumes:
       - /tmp/{{ cookiecutter.postgres_database }}:/var/lib/postgresql/data/
@@ -20,9 +25,10 @@ services:
   backend:
     build:
       context:
+        # backend dockerfile requires database to be in context
         ./
       dockerfile:
-        ./backend/Dockerfile
+        backend/Dockerfile
     image: python/backend
     command: uvicorn backend.api:api --host 0.0.0.0
     ports:

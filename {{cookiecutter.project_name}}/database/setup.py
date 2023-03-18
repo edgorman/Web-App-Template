@@ -11,5 +11,6 @@ setup(
         "pytest",
         "pydantic",
         "sqlmodel",
+        "psycopg2-binary",
     ]
 )
