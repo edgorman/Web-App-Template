@@ -1,0 +1,9 @@
+{
+  "project_name": "web-app-test",
+  "author_name": "Edward Gorman",
+  "author_email": "user@example.com",
+  "github_username": "edgorman",
+  "postgres_username": "postgres",
+  "postgres_password": "postgres",
+  "postgres_database": "postgres-db"
+}

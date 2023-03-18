@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+  database:
+    image: postgres:15-alpine
+    volumes:
+      - /tmp/{{ cookiecutter.postgres_database }}:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER={{ cookiecutter.postgres_username }}
+      - POSTGRES_PASSWORD={{ cookiecutter.postgres_password }}
+      - POSTGRES_DB={{ cookiecutter.postgres_database }}
+
+  backend:
+    build:
+      context:
+        ./
+      dockerfile:
+        ./backend/Dockerfile
+    image: python/backend
+    command: uvicorn backend.api:api --host 0.0.0.0
+    ports:
+      - 8080:8000
+    depends_on:
+      - database
+    environment:
+      - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:5432/{{ cookiecutter.postgres_database }}
+
+  # runner:
+  #   build:
+  #     context:
+  #       runner
+  #     dockerfile:
+  #       Dockerfile
+  #   command: python -m runner
