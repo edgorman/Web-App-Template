@@ -25,18 +25,30 @@ services:
   backend:
     build:
       context:
-        # backend dockerfile requires database to be in context
-        ./
+        ./ # backend dockerfile requires database to be in context
       dockerfile:
         backend/Dockerfile
     image: python/backend
     command: uvicorn backend.api:api --host 0.0.0.0
     ports:
-      - 8080:8000
+      - 5000:5000
     depends_on:
       - database
     environment:
       - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:5432/{{ cookiecutter.postgres_database }}
+
+  frontend:
+    build:
+      context:
+        frontend
+      dockerfile:
+        Dockerfile
+    image: node/frontend
+    command: npm run start
+    ports:
+      - 8080:3000
+    depends_on:
+      - backend
 
   # runner:
   #   build:
