@@ -16,13 +16,13 @@ def create_fruits(fruits: List[Fruit]) -> None:
             session.add(fruit)
         session.commit()
 
-def get_fruits() -> List[Fruit]:
+def read_fruits() -> List[Fruit]:
     with Session(DB_ENGINE) as session:
         statement = select(Fruit)
         results = session.exec(statement)
         return results.all()
 
-def get_fruit_by_name(name: str) -> Fruit:
+def read_fruit_by_name(name: str) -> Fruit:
     with Session(DB_ENGINE) as session:
         statement = select(Fruit).where(Fruit.name == name)
         results = session.exec(statement)
