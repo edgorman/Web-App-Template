@@ -21,21 +21,21 @@ async def get_fruits():
     try:
         return [fruit for fruit in read_fruits()]
     except Exception as e:
-        return HTTPException(status_code=404, detail=f"Could not get list of fruits: '{e}'.")
+        raise HTTPException(status_code=404, detail=f"Could not get list of fruits: '{e}'.")
 
 @router.get("/{name}", response_description="Get the fruit by name")
 async def get_fruit_by_name(name: str):
     try:
         return read_fruit_by_name(name)
     except Exception as e:
-        return HTTPException(status_code=404, detail=f"Could not find '{fruit_name}'.")
+        raise HTTPException(status_code=404, detail=f"Could not find '{name}'.")
 
 @router.get("/{name}/amount", response_description="Get the amount of fruit by name")
 async def get_fruit_by_amount(name: str):
     try:
         return read_fruit_by_name(name).amount
     except Exception as e:
-        return HTTPException(status_code=404, detail=f"Could not find '{fruit_name}'.")
+        raise HTTPException(status_code=404, detail=f"Could not find '{name}'.")
 
 @router.post("/create", response_description="Create a new fruit")
 async def create_fruit(fruit: Fruit):
@@ -43,7 +43,7 @@ async def create_fruit(fruit: Fruit):
         create_fruits([fruit])
         return "OK"
     except Exception as e:
-        return HTTPException(status_code=424, detail=f"Could not create '{fruit}': '{e}'.")
+        raise HTTPException(status_code=424, detail=f"Could not create '{fruit}': '{e}'.")
 
 @router.post("/update", response_description="Update an existing fruit")
 async def update_fruit(fruit: Fruit):
@@ -51,7 +51,7 @@ async def update_fruit(fruit: Fruit):
         update_fruits([fruit])
         return "OK"
     except Exception as e:
-        return HTTPException(status_code=424, detail=f"Could not update '{fruit}': '{e}'.")
+        raise HTTPException(status_code=424, detail=f"Could not update '{fruit}': '{e}'.")
 
 @router.post("/delete", response_description="Delete an existing fruit")
 async def delete_fruit(fruit: Fruit):
@@ -59,4 +59,4 @@ async def delete_fruit(fruit: Fruit):
         delete_fruits([fruit])
         return "OK"
     except Exception as e:
-        return HTTPException(status_code=424, detail=f"Could not delete '{fruit}': '{e}'.")
+        raise HTTPException(status_code=424, detail=f"Could not delete '{fruit}': '{e}'.")
