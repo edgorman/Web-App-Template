@@ -1,6 +1,6 @@
 FROM python:3.10
 
-RUN mkdir /runner
-ADD . /runner
+RUN mkdir /usr/runner
+ADD . /usr/runner
 
-RUN python -m pip install runner/.
+RUN python -m pip install /usr/runner/.

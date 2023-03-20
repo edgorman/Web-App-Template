@@ -1,13 +1,10 @@
 FROM python:3.10
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN mkdir /usr/database
+ADD ./database /usr/database
 
-RUN mkdir /database
-ADD ./database /database
+RUN mkdir /usr/backend
+ADD ./backend /usr/backend
 
-RUN mkdir /backend
-ADD ./backend /backend
-
-RUN python -m pip install /database/.
-RUN python -m pip install /backend/.
+RUN python -m pip install /usr/database/.
+RUN python -m pip install /usr/backend/.

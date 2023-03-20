@@ -4,7 +4,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import database
+import database  # Required to initialise the connection to the database
 from backend.routers.fruit import router as fruit_router
 
 
