@@ -38,11 +38,10 @@ def update_fruits(fruits: List[Fruit]) -> None:
             session.add(result)
         session.commit()
 
-def delete_fruits(fruits: List[Fruit]) -> None:
+def delete_fruit_by_name(name: str) -> None:
     with Session(DB_ENGINE) as session:
-        for fruit in fruits:
-            statement = select(Fruit).where(Fruit.name == fruit.name)
-            results = session.exec(statement)
-            result = results.one()
-            session.delete(result)
+        statement = select(Fruit).where(Fruit.name == name)
+        results = session.exec(statement)
+        result = results.one()
+        session.delete(result)
         session.commit()

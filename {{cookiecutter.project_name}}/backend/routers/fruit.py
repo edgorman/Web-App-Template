@@ -1,6 +1,8 @@
 import logging
+from typing import Annotated
 
 from fastapi import APIRouter
+from fastapi import Body
 from fastapi import HTTPException
 from database.models.fruit import Fruit
 from database.handlers.fruit import *
@@ -28,14 +30,14 @@ async def get_fruit_by_name(name: str):
     try:
         return read_fruit_by_name(name)
     except Exception as e:
-        raise HTTPException(status_code=404, detail=f"Could not find '{name}'.")
+        raise HTTPException(status_code=404, detail=f"Could not find '{name}': '{e}'")
 
 @router.get("/{name}/amount", response_description="Get the amount of fruit by name")
-async def get_fruit_by_amount(name: str):
+async def get_fruit_amount(name: str):
     try:
         return read_fruit_by_name(name).amount
     except Exception as e:
-        raise HTTPException(status_code=404, detail=f"Could not find '{name}'.")
+        raise HTTPException(status_code=404, detail=f"Could not find '{name}': '{e}'")
 
 @router.post("/create", response_description="Create a new fruit")
 async def create_fruit(fruit: Fruit):
@@ -54,9 +56,9 @@ async def update_fruit(fruit: Fruit):
         raise HTTPException(status_code=424, detail=f"Could not update '{fruit}': '{e}'.")
 
 @router.post("/delete", response_description="Delete an existing fruit")
-async def delete_fruit(fruit: Fruit):
+async def delete_fruit(name: Annotated[str, Body()]):
     try:
-        delete_fruits([fruit])
+        delete_fruit_by_name(name)
         return "OK"
     except Exception as e:
-        raise HTTPException(status_code=424, detail=f"Could not delete '{fruit}': '{e}'.")
+        raise HTTPException(status_code=424, detail=f"Could not delete '{name}': '{e}'.")
