@@ -1,6 +1,6 @@
 FROM node:19
 
-WORKDIR /usr/frontend
-ADD . /usr/frontend
+WORKDIR /frontend
+ADD . /frontend
 
 RUN npm install
