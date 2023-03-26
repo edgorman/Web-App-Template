@@ -9,7 +9,7 @@ path=$(pwd)
 
 cd /tmp
 sudo rm -rf web-app-test
-sudo rm -rf postgres-db
+sudo rm -rf postgres-db  # This is the same as postgres_database in cookiecutter.json
 
 python -m cookiecutter --no-input $path
 

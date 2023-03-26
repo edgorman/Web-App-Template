@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 setup(
-    name='database',
+    name='{{ cookiecutter.module_name }}',
     version='0.0.1',
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
@@ -11,6 +11,5 @@ setup(
         "pytest",
         "pydantic",
         "sqlmodel",
-        "psycopg2-binary",
     ]
 )

@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import database  # Required to initialise the connection to the database
-from backend.routers.fruit import router as fruit_router
+from api.routers.fruit import router as fruit_router
 
 
 # Set up logging for module
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 api = FastAPI()
 api.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:{{ cookiecutter.frontend_port }}"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,3 +31,5 @@ async def root():
         "name": __name__,
         "version": "0.0.1"
     }
+
+logger.info(f"Successfully loaded API")

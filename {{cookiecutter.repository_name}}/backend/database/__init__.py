@@ -6,7 +6,7 @@ from sqlmodel import create_engine
 from sqlmodel import SQLModel
 
 # Models must be imported to be created
-from database.models import fruit
+from {{cookiecutter.module_name}}.models import fruit
 
 
 # Set up logging for module

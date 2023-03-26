@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 setup(
-    name='runner',
+    name='worker',
     version='0.0.1',
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
@@ -10,5 +10,7 @@ setup(
     install_requires=[
         "pytest",
         "pydantic",
+        "celery",
+        "{{ cookiecutter.module_name }}",
     ]
 )

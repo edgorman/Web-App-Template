@@ -6,7 +6,7 @@ export default function FruitList() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    fetch('http://127.0.0.1:5000/fruit/')
+    fetch('http://127.0.0.1:{{ cookiecutter.backend_port }}/fruit/')
       .then((response) => response.json())
       .then((data) => { 
         console.log(data);

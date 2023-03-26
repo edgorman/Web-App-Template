@@ -1,9 +1,15 @@
 {
-  "project_name": "web-app-test",
-  "author_name": "Edward Gorman",
-  "author_email": "user@example.com",
-  "github_username": "edgorman",
+  "repository_name": "web-app-test",
+  "project_name": "Web App Test",
+  "module_name": "module",
+  "author_name": "Author Name",
+  "author_email": "author@example.com",
+  "github_username": "authorname",
   "postgres_username": "postgres",
   "postgres_password": "postgres",
-  "postgres_database": "postgres-db"
+  "postgres_database": "postgres-db",
+  "postgres_port": "5432",
+  "redis_port": "6379",
+  "backend_port": "5000",
+  "frontend_port": "3000"
 }

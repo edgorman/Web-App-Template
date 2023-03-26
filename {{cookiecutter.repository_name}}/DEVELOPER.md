@@ -29,8 +29,8 @@ Please install the following:
 Clone the repository:
 
 ```bash
-git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}
-cd {{ cookiecutter.project_name }}
+git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}
+cd {{ cookiecutter.repository_name }}
 ```
 
 ## Deployment

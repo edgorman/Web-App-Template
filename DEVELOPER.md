@@ -48,20 +48,23 @@ chmod +x ./scripts/ -R
 
 ### Create
 
+To create a test project using default values, run:
+
 ```bash
 ./scripts/create.sh
 ```
 
 ### Destroy
 
+To delete the test project and all docker images/volumes, run:
+
 ```bash
-# Note: This destroys all containers and images spun up from create.sh
 ./scripts/destroy.sh
 ```
 
 ### Test
 
-To run tests on the test project, run:
+To run all tests on the test project, run:
 
 ```bash
 # Note: This will run create.sh for you, do not run before this
