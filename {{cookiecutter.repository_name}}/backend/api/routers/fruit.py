@@ -11,6 +11,7 @@ from database.handlers.fruit import read_fruit_by_name
 from database.handlers.fruit import create_fruits
 from database.handlers.fruit import update_fruits
 from database.handlers.fruit import delete_fruit_by_name
+from worker.tasks import collect_fruit_by_name
 
 
 # Set up logger
@@ -67,3 +68,12 @@ async def delete_fruit(name: Annotated[str, Body()]):
         return "OK"
     except Exception as e:
         raise HTTPException(status_code=424, detail=f"Could not delete '{name}': '{e}'.")
+
+@router.get("/collect/{name}", response_description="Spawn a task to collect fruit by name")
+async def collect_fruit(name: str):
+    try:
+        task = collect_fruit_by_name.apply_async(args=[name])
+        logger.info(f"task: {task}")
+        return task.id
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Failed to initialise task: '{e}'")

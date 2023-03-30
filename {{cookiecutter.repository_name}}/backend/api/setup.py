@@ -13,6 +13,7 @@ setup(
         "requests",
         "uvicorn",
         "fastapi",
-        "{{ cookiecutter.module_name }}",
+        "database",
+        "worker",
     ]
 )

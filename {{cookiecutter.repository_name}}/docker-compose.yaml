@@ -3,6 +3,8 @@ services:
 
   redis:
     image: redis
+    expose:
+      - 6379
     ports:
       - 6379:{{ cookiecutter.redis_port }}
 
@@ -31,6 +33,24 @@ services:
       - database
     environment:
       - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:{{ cookiecutter.postgres_port }}/{{ cookiecutter.postgres_database }}
+      - BROKER_URL=redis://redis:6379/0
+      - BACKEND_URL=redis://redis:6379/0
+
+  worker:
+    build:
+      context:
+        ./
+      dockerfile:
+        backend/Dockerfile
+    image: python/worker
+    command: celery -A worker.tasks worker --loglevel=INFO
+    depends_on:
+      - redis
+      - backend
+    environment:
+      - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:{{ cookiecutter.postgres_port }}/{{ cookiecutter.postgres_database }}
+      - BROKER_URL=redis://redis:6379/0
+      - BACKEND_URL=redis://redis:6379/0
 
   frontend:
     build:

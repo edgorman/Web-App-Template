@@ -10,7 +10,9 @@ setup(
     install_requires=[
         "pytest",
         "pydantic",
+        "redis",
         "celery",
         "{{ cookiecutter.module_name }}",
+        "database",
     ]
 )

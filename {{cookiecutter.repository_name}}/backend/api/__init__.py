@@ -2,9 +2,11 @@ import os
 import logging
 
 from fastapi import FastAPI
+from fastapi import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import database  # Required to initialise the connection to the database
+from worker.tasks import get_task_status
 from api.routers.fruit import router as fruit_router
 
 
@@ -31,5 +33,12 @@ async def root():
         "name": __name__,
         "version": "0.0.1"
     }
+
+@api.get("/task/{taskid}", response_description="Get the status of a task id")
+async def get_task(taskid: str):
+    try:
+        return get_task_status(taskid)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Could not find task '{taskid}': '{e}'")
 
 logger.info(f"Successfully loaded API")
