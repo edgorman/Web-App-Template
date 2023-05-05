@@ -8,8 +8,6 @@ setup(
     author_email='{{ cookiecutter.author_email }}',
     packages=find_packages('.'),
     install_requires=[
-        "pytest",
-        "pydantic",
-        "sqlmodel",
+        "database",
     ]
 )

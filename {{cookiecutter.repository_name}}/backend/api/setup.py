@@ -14,6 +14,7 @@ setup(
         "uvicorn",
         "fastapi",
         "database",
+        "{{ cookiecutter.module_name }}",
         "worker",
     ]
 )

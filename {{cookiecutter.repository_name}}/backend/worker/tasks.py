@@ -5,7 +5,7 @@ import logging
 from celery import Celery
 from celery.result import AsyncResult
 
-from {{cookiecutter.module_name}}.models.fruit import Fruit
+from database.models.fruit import Fruit
 from database.handlers.fruit import create_fruits
 
 

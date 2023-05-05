@@ -5,7 +5,7 @@ from sqlmodel import select
 from sqlmodel import Session
 
 from database import DB_ENGINE
-from {{cookiecutter.module_name}}.models.fruit import Fruit
+from database.models.fruit import Fruit
 
 
 logger = logging.getLogger(__name__)

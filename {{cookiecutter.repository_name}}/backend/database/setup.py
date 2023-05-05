@@ -12,6 +12,5 @@ setup(
         "pydantic",
         "sqlmodel",
         "psycopg2-binary",
-        "{{ cookiecutter.module_name }}",
     ]
 )

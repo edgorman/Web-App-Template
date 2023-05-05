@@ -5,7 +5,7 @@ from fastapi import APIRouter
 from fastapi import Body
 from fastapi import HTTPException
 
-from {{cookiecutter.module_name}}.models.fruit import Fruit
+from database.models.fruit import Fruit
 from database.handlers.fruit import read_fruits
 from database.handlers.fruit import read_fruit_by_name
 from database.handlers.fruit import create_fruits

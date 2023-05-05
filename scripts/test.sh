@@ -8,10 +8,10 @@ fi
 
 ./scripts/create.sh
 
-./tmp/farp-template-test/scripts/create.sh
-./tmp/farp-template-test/scripts/start.sh
-./tmp/farp-template-test/scripts/test.sh
-./tmp/farp-template-test/scripts/stop.sh
-./tmp/farp-template-test/scripts/destroy.sh
+./tmp/web-app-test/scripts/create.sh
+./tmp/web-app-test/scripts/start.sh
+./tmp/web-app-test/scripts/test.sh
+./tmp/web-app-test/scripts/stop.sh
+./tmp/web-app-test/scripts/destroy.sh
 
 ./scripts/destroy.sh
