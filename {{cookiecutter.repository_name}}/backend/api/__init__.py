@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import database  # Required to initialise the connection to the database
 from worker.tasks import get_task_status
-from api.routers.fruit import router as fruit_router
+from api._endpoints.fruit import router as fruit_router
 
 
 # Set up logging for module

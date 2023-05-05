@@ -6,7 +6,7 @@ from sqlmodel import create_engine
 from sqlmodel import SQLModel
 
 # Models must be imported to be created
-from .models import fruit
+from ._models import fruit
 
 
 # Set up logging for module
