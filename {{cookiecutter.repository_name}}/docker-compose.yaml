@@ -59,8 +59,7 @@ services:
       dockerfile:
         Dockerfile
     image: node/frontend
-    command: npm run start
+    expose:
+      - {{ cookiecutter.frontend_port }}
     ports:
-      - 3000:{{ cookiecutter.frontend_port }}
-    depends_on:
-      - backend
+      - 80:{{ cookiecutter.frontend_port }}

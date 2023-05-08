@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 api = FastAPI()
 api.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:{{ cookiecutter.frontend_port }}"],
+    allow_origins=["http://localhost", "http://{{ cookiecutter.frontend_port }}"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

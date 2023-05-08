@@ -11,5 +11,5 @@
   "postgres_port": "5432",
   "redis_port": "6379",
   "backend_port": "5000",
-  "frontend_port": "3000"
+  "frontend_port": "80"
 }
