@@ -4,7 +4,7 @@ export default function FruitDelete() {
     event.preventDefault();
     
     fetch(
-      'http://127.0.0.1:{{ cookiecutter.backend_port }}/fruit/delete', 
+      'http://127.0.0.1:{{ cookiecutter.fastapi_port }}/fruit/delete', 
       {
         method: 'POST',
         headers: {

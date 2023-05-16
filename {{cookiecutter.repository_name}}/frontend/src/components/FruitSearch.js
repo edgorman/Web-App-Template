@@ -6,7 +6,7 @@ export default function FruitSearch() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    fetch('http://127.0.0.1:{{ cookiecutter.backend_port }}/fruit/' + event.target.name.value)
+    fetch('http://127.0.0.1:{{ cookiecutter.fastapi_port }}/fruit/' + event.target.name.value)
       .then((response) => response.json())
       .then((data) => { 
         console.log(data);

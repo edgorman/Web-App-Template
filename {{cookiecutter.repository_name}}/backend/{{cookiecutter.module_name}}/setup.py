@@ -7,7 +7,5 @@ setup(
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
     packages=find_packages('.'),
-    install_requires=[
-        "database",
-    ]
+    install_requires=[]
 )

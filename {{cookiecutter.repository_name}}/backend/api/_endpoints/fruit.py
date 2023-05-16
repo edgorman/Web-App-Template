@@ -5,12 +5,12 @@ from fastapi import APIRouter
 from fastapi import Body
 from fastapi import HTTPException
 
-from database._models.fruit import Fruit
-from database._handlers.fruit import read_fruits
-from database._handlers.fruit import read_fruit_by_name
-from database._handlers.fruit import create_fruits
-from database._handlers.fruit import update_fruits
-from database._handlers.fruit import delete_fruit_by_name
+from database.models.fruit import Fruit
+from database.handlers.fruit import read_fruits
+from database.handlers.fruit import read_fruit_by_name
+from database.handlers.fruit import create_fruits
+from database.handlers.fruit import update_fruits
+from database.handlers.fruit import delete_fruit_by_name
 from worker.tasks import collect_fruit_by_name
 
 

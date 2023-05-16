@@ -8,7 +8,7 @@ export default function FruitCreate() {
     }
 
     fetch(
-      'http://127.0.0.1:{{ cookiecutter.backend_port }}/fruit/create', 
+      'http://127.0.0.1:{{ cookiecutter.fastapi_port }}/fruit/create', 
       {
         method: 'POST',
         headers: {

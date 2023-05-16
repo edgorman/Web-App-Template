@@ -1,12 +1,10 @@
 version: "3.8"
 services:
 
-  redis:
+  cache:
     image: redis
-    expose:
-      - 6379
     ports:
-      - 6379:{{ cookiecutter.redis_port }}
+      - 6379:6379
 
   database:
     image: postgres:15-alpine
@@ -19,22 +17,23 @@ services:
       - POSTGRES_PASSWORD={{ cookiecutter.postgres_password }}
       - POSTGRES_DB={{ cookiecutter.postgres_database }}
 
-  backend:
+  api:
     build:
       context:
         backend
       dockerfile:
         Dockerfile
-    image: python/backend
-    command: uvicorn api:api --host 0.0.0.0 --port 5000
+    image: python/api
+    command: uvicorn api.api:api --host 0.0.0.0 --port 5000
     ports:
-      - 5000:{{ cookiecutter.backend_port }}
+      - 5000:{{ cookiecutter.fastapi_port }}
     depends_on:
+      - cache
       - database
     environment:
       - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:{{ cookiecutter.postgres_port }}/{{ cookiecutter.postgres_database }}
-      - BROKER_URL=redis://redis:6379/0
-      - BACKEND_URL=redis://redis:6379/0
+      - BROKER_URL=redis://cache:6379/0
+      - BACKEND_URL=redis://cache:6379/0
 
   worker:
     build:
@@ -43,14 +42,13 @@ services:
       dockerfile:
         Dockerfile
     image: python/worker
-    command: celery -A worker.tasks worker --loglevel=INFO
+    command: celery -A worker.worker:worker worker --loglevel=INFO
     depends_on:
-      - redis
-      - backend
+      - api
     environment:
       - DATABASE_URL=postgresql://{{ cookiecutter.postgres_username }}:{{ cookiecutter.postgres_password }}@database:{{ cookiecutter.postgres_port }}/{{ cookiecutter.postgres_database }}
-      - BROKER_URL=redis://redis:6379/0
-      - BACKEND_URL=redis://redis:6379/0
+      - BROKER_URL=redis://cache:6379/0
+      - BACKEND_URL=redis://cache:6379/0
 
   frontend:
     build:
@@ -59,7 +57,5 @@ services:
       dockerfile:
         Dockerfile
     image: node/frontend
-    expose:
-      - {{ cookiecutter.frontend_port }}
     ports:
       - 80:{{ cookiecutter.frontend_port }}
