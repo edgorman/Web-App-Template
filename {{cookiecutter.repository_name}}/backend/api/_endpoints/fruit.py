@@ -31,6 +31,7 @@ async def get_fruits():
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Could not get list of fruits: '{e}'.")
 
+
 @router.get("/{name}", response_description="Get the fruit by name")
 async def get_fruit_by_name(name: str):
     try:
@@ -38,12 +39,14 @@ async def get_fruit_by_name(name: str):
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Could not find '{name}': '{e}'")
 
+
 @router.get("/{name}/amount", response_description="Get the amount of fruit by name")
 async def get_fruit_amount(name: str):
     try:
         return read_fruit_by_name(name).amount
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Could not find '{name}': '{e}'")
+
 
 @router.post("/create", response_description="Create a new fruit")
 async def create_fruit(fruit: Fruit):
@@ -53,6 +56,7 @@ async def create_fruit(fruit: Fruit):
     except Exception as e:
         raise HTTPException(status_code=424, detail=f"Could not create '{fruit}': '{e}'.")
 
+
 @router.post("/update", response_description="Update an existing fruit")
 async def update_fruit(fruit: Fruit):
     try:
@@ -61,6 +65,7 @@ async def update_fruit(fruit: Fruit):
     except Exception as e:
         raise HTTPException(status_code=424, detail=f"Could not update '{fruit}': '{e}'.")
 
+
 @router.post("/delete", response_description="Delete an existing fruit")
 async def delete_fruit(name: Annotated[str, Body()]):
     try:
@@ -68,6 +73,7 @@ async def delete_fruit(name: Annotated[str, Body()]):
         return "OK"
     except Exception as e:
         raise HTTPException(status_code=424, detail=f"Could not delete '{name}': '{e}'.")
+
 
 @router.get("/collect/{name}", response_description="Spawn a task to collect fruit by name")
 async def collect_fruit(name: str):

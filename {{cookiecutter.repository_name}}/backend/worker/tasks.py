@@ -5,7 +5,7 @@ import logging
 from celery import Celery
 from celery.result import AsyncResult
 
-import database  # Required to initialise the connection to the database
+import database  # noqa: F401, Required to initialise the connection to the database
 from database.models.fruit import Fruit
 from database.handlers.fruit import create_fruits
 
@@ -13,11 +13,11 @@ from database.handlers.fruit import create_fruits
 logger = logging.getLogger(__name__)
 
 # Set up a worker
-BROKER_URL = os.getenv('BROKER_URL')
-BACKEND_URL = os.getenv('BACKEND_URL')
-app = Celery('worker', broker=BROKER_URL, backend=BACKEND_URL)
+BROKER_URL = os.getenv("BROKER_URL")
+BACKEND_URL = os.getenv("BACKEND_URL")
+app = Celery("worker", broker=BROKER_URL, backend=BACKEND_URL)
 
-# Set up tasks
+
 @app.task
 def get_task_status(task_id: str):
     task_result = AsyncResult(task_id)
@@ -26,6 +26,7 @@ def get_task_status(task_id: str):
         "task_status": task_result.status,
         "task_result": task_result.result
     }
+
 
 @app.task
 def collect_fruit_by_name(name: str):
@@ -38,4 +39,5 @@ def collect_fruit_by_name(name: str):
     create_fruits([fruit])
     logger.info(f"done creating fruit {fruit}")
 
-logger.info(f"Successfully loaded worker")
+
+logger.info("Successfully loaded worker")

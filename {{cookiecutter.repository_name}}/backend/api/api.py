@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import database  # Required to initialise the connection to the database
+import database  # noqa: F401, Required to initialise the connection to the database
 from api._endpoints.fruit import router as fruit_router
 from api._endpoints.task import router as task_router
 
@@ -26,6 +26,7 @@ api.add_middleware(
 api.include_router(fruit_router)
 api.include_router(task_router)
 
+
 @api.get("/")
 async def root():
     return {
@@ -33,4 +34,4 @@ async def root():
         "version": "0.0.1"
     }
 
-logger.info(f"Successfully loaded API")
+logger.info("Successfully loaded API")

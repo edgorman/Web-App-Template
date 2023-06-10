@@ -42,7 +42,7 @@ services:
       dockerfile:
         Dockerfile
     image: python/worker
-    command: celery -A worker.worker:worker worker --loglevel=INFO
+    command: celery -A worker.tasks:app worker --loglevel=INFO
     depends_on:
       - api
     environment:

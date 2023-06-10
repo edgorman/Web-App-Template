@@ -6,3 +6,5 @@ api/.
 
 # test and linting
 pytest
+flake8
+autopep8
