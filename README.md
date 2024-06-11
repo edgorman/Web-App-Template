@@ -1,12 +1,29 @@
 # Web App Template
 
-This repository is a cookiecutter template for bootstrapping a [FastAPI](https://fastapi.tiangolo.com/) Python backend, a [React](https://reactjs.org/) JavaScript frontend, a [PostgreSQL](https://www.postgresql.org/) relational database, and a [Redis](https://redis.io/) cache and message broker. These services are containerised using [Docker](https://www.docker.com/) and can be deployed using [docker-compose](https://docs.docker.com/compose/) locally. 
+A cookiecutter template for generating a simple web app that is deployable to Google Cloud Platform.
 
-Cloud deployments coming soon...
+It has the following features:
+1. ...
 
-## Developement
+## Usage
 
-See the [Developer README](./DEVELOPER.md) for instructions on installation and usage.
+To use this cookiecutter template, clone the repo and then run the following:
+
+```bash
+python -m pip install cookiecutter
+python -m cookiecutter . -o <parent-repository-folder>
+```
+
+And then to create the repository and upload it to GitHub:
+
+```bash
+cd <parent-repository-folder>
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin git@github.com:<your-username>/<repository-name>
+git push -u origin main
+```
 
 ## Contributing
 
