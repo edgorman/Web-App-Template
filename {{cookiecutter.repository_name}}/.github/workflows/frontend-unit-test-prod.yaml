@@ -1,0 +1,41 @@
+name: Frontend Unit Test (prod)
+
+on:
+  push:
+    branches:
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - frontend/**
+  pull-request:
+    branches:
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - frontend/**
+
+jobs:
+  frontend-unit-test:
+    name: "Unit test the frontend changes on prod"
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: frontend-unit-test-checkout
+        name: "Checkout repository"
+        uses: actions/checkout@v3
+      
+      - id: frontend-unit-test-setup
+        name: "Setup Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: {{cookiecutter.frontend_node_version}}
+      
+      - id: frontend-unit-test-install
+        name: "Install dependencies"
+        run: |
+          npm install
+      
+      - id: frontend-unit-test-run
+        name: "Run unit tests"
+        run: |
+          npm test
+        env:
+          CI: true
