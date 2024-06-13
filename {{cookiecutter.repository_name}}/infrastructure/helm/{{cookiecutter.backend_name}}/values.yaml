@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: {{cookiecutter.backend_name}}
+  tag: "{{cookiecutter.dev_image_tag}}"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: {{cookiecutter.backend_port}}
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

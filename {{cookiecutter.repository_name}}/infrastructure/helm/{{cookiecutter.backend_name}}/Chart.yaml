@@ -1,0 +1,4 @@
+apiVersion: v2
+name: {{cookiecutter.backend_name}}
+description: Helm chart for deploying the {{cookiecutter.backend_name}} service
+version: 0.0.1

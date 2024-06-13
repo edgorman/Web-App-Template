@@ -1,22 +1,22 @@
 version: "3.8"
 services:
 
-  backend:
+  {{cookiecutter.backend_name}}:
     build:
       context:
-        backend
+        {{cookiecutter.backend_name}}
       dockerfile:
         Dockerfile
-    image: backend/{{cookiecutter.backend_image_name}}:local
+    image: {{cookiecutter.backend_name}}/{{cookiecutter.backend_image_name}}:local
     ports:
       - {{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}
 
-  frontend:
+  {{cookiecutter.frontend_name}}:
     build:
       context:
-        frontend
+        {{cookiecutter.frontend_name}}
       dockerfile:
         Dockerfile
-    image: frontend/{{cookiecutter.frontend_image_name}}:local
+    image: {{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:local
     ports:
       - {{cookiecutter.frontend_port}}:{{cookiecutter.frontend_port}}

@@ -1,0 +1,2 @@
+image:
+  tag: "{{cookiecutter.prod_image_tag}}"

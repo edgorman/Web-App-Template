@@ -1,0 +1,53 @@
+name: Helm Deploy {{cookiecutter.frontend_name}}
+
+on:
+  push:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - {{cookiecutter.frontend_name}}/**
+      - infrastructure/helm/{{cookiecutter.frontend_name}}/**
+
+jobs:
+  helm-deploy-{{cookiecutter.frontend_name}}:
+    name: "Deploy {{cookiecutter.frontend_name}} via Helm"
+    runs-on: ubuntu-latest
+
+    steps:
+      id: helm-deploy-{{cookiecutter.frontend_name}}-checkout
+      name: "Checkout repository"
+      uses: actions/checkout@v3
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-setup-gcp
+      name: "Set up Google Cloud SDK"
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: "latest"
+        service_account_key: {{ "${{" }} secrets.GCP_SERVICE_ACCOUNT_KEY {{ "}}" }}
+        project_id: {{ "${{" }} secrets.GCP_PROJECT_ID {{ "$}}" }}
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-configure
+      name: "Configure Docker to use gcloud"
+      run: |
+        gcloud auth configure-docker europe-docker.pkg.dev
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-build
+      name: "Build Docker image"
+      run: |
+        docker build {{cookiecutter.frontend_name}}/. -t europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:{{ "${{" }} vars.IMAGE_TAG {{ "}}" }} .
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-push
+      name: "Push Docker image to GCP Artifact Registry"
+      run: |
+        docker push europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:{{ "${{" }} vars.IMAGE_TAG {{ "}}" }}
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-setup-helm
+      name: "Set up Helm"
+      run: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      id: helm-deploy-{{cookiecutter.frontend_name}}-deploy
+      name: Helm deploy
+      run: |
+        helm upgrade --install {{cookiecutter.frontend_name}} infrastructure/helm/{{cookiecutter.frontend_name}}/. --set image.repository=europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.backend_image_name}} --set image.tag={{ "${{" }} vars.IMAGE_TAG {{ "}}" }}

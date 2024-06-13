@@ -1,0 +1,44 @@
+name: Unit Test {{cookiecutter.backend_name}}
+
+on:
+  push:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - {{cookiecutter.backend_name}}/**
+  pull-request:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - {{cookiecutter.backend_name}}/**
+
+jobs:
+  unit-test-{{cookiecutter.backend_name}}:
+    name: "Unit test the {{cookiecutter.backend_name}} changes"
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: unit-test-{{cookiecutter.backend_name}}-checkout
+        name: "Checkout repository"
+        uses: actions/checkout@v3
+      
+      - id: unit-test-{{cookiecutter.backend_name}}-setup
+        name: "Setup Python"
+        uses: actions/setup-python@v4
+        with:
+          python-version: {{cookiecutter.backend_python_version}}
+      
+      - id: unit-test-{{cookiecutter.backend_name}}-install
+        name: "Install dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r {{cookiecutter.backend_name}}/requirements.txt
+      
+      - id: unit-test-{{cookiecutter.backend_name}}-run
+        name: "Run unit tests"
+        run: |
+          python -m pytest {{cookiecutter.backend_name}}/tests -svv
+        env:
+          CI: true

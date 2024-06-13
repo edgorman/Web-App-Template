@@ -1,0 +1,58 @@
+name: Terraform Apply infrastructure
+
+on:
+  push:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - infrastructure/terraform/**
+
+jobs:
+  terraform-apply-infrastructure:
+    name: "Apply the Terraform changes"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - id: terraform-apply-infrastructure-checkout
+        name: "Checkout repository"
+        uses: actions/checkout@v3
+
+      - id: terraform-apply-infrastructure-environment
+        name: "Set environment variables"
+        run: |
+          echo "TF_WORKSPACE={{cookiecutter.tf_cloud_workspace}}" >> $GITHUB_ENV
+          echo "TF_LOCAL_DIRECTORY=infrastructure/terraform/." >> $GITHUB_ENV
+          echo "TF_CLOUD_ORGANIZATION={{cookiecutter.tf_cloud_organization}}" >> $GITHUB_ENV
+          echo "TF_API_TOKEN={{ "${{" }} secrets.TF_TOKEN {{ "}}" }}" >> $GITHUB_ENV
+      
+      - id: terraform-apply-infrastructure-upload
+        name: "Upload config to Terraform Cloud"
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        with:
+          workspace: "{{cookiecutter.tf_cloud_workspace}}"
+          directory: "infrastructure/terraform/."
+          speculative: true
+
+      - id: terraform-apply-infrastructure-create
+        name: "Create Terraform plan"
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        with:
+          workspace: "{{cookiecutter.tf_cloud_workspace}}"
+          configuration_version: "{{ "${{" }} steps.terraform-apply-infrastructure-upload.outputs.configuration_version_id {{ "}}" }}"
+          plan_only: true
+        env:
+          TF_VAR_project_id={{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}
+          TF_VAR_image_tag={{ "${{" }} vars.IMAGE_TAG {{ "}}" }}
+
+      - id: terraform-apply-infrastructure-apply
+        name: "Apply Terraform plan"
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
+        if: fromJSON(steps.terraform-apply-infrastructure-create.outputs.payload).data.attributes.actions.IsConfirmable
+        with:
+          run: {{ "${{" }} steps.terraform-apply-infrastructure-create.outputs.run_id {{ "}}" }}
+          comment: "Apply Run from GitHub Actions CI {{ "${{" }} github.sha {{ "}}" }}"

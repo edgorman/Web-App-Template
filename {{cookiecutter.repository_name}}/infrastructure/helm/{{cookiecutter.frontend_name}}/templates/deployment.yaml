@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.gcp_frontend_deployment_name}}
+  labels:
+    app: {{ "{{" }} .Chart.Name {{ "}}" }}
+    release: {{ "{{" }} .Release.Name {{ "}}" }}
+spec:
+  replicas: {{ "{{" }} .Values.replicaCount {{ "}}" }}
+  selector:
+    matchLabels:
+      app: {{ "{{" }} .Chart.Name {{ "}}" }}
+      release: {{ "{{" }} .Release.Name {{ "}}" }}
+  template:
+    metadata:
+      labels:
+        app: {{ "{{" }} .Chart.Name {{ "}}" }}
+        release: {{ "{{" }} .Release.Name {{ "}}" }}
+    spec:
+      containers:
+        - name: {{ "{{" }} .Chart.Name {{ "}}" }}
+          image: '{{ "{{" }} .Values.image.repository {{ "}}" }}:{{ "{{" }} .Values.image.tag }}'
+          imagePullPolicy: {{ "{{" }} .Values.image.pullPolicy {{ "}}" }}
+          ports:
+            - containerPort: {{cookiecutter.frontend_port}}
+          resources:
+            limits:
+              cpu: {{ "{{" }} .Values.resources.limits.cpu {{ "}}" }}
+              memory: {{ "{{" }} .Values.resources.limits.memory {{ "}}" }}
+            requests:
+              cpu: {{ "{{" }} .Values.resources.requests.cpu {{ "}}" }}
+              memory: {{ "{{" }} .Values.resources.requests.memory {{ "}}" }}
+      nodeSelector: {{ "{{" }} .Values.nodeSelector {{ "}}" }}
+      tolerations: {{ "{{" }} .Values.tolerations {{ "}}" }}
+      affinity: {{ "{{" }} .Values.affinity {{ "}}" }}

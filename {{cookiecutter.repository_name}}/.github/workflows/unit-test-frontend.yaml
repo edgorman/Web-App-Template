@@ -1,0 +1,43 @@
+name: Unit Test {{cookiecutter.frontend_name}} 
+
+on:
+  push:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - {{cookiecutter.frontend_name}}/**
+  pull-request:
+    branches:
+      - {{cookiecutter.dev_branch}}
+      - {{cookiecutter.prod_branch}}
+    paths:
+      - {{cookiecutter.frontend_name}}/**
+
+jobs:
+  unit-test-{{cookiecutter.frontend_name}}:
+    name: "Unit test the {{cookiecutter.frontend_name}} changes"
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: unit-test-{{cookiecutter.frontend_name}}-checkout
+        name: "Checkout repository"
+        uses: actions/checkout@v3
+      
+      - id: unit-test-{{cookiecutter.frontend_name}}-setup
+        name: "Setup Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: {{cookiecutter.frontend_node_version}}
+      
+      - id: unit-test-{{cookiecutter.frontend_name}}-install
+        name: "Install dependencies"
+        run: |
+          npm install
+      
+      - id: unit-test-{{cookiecutter.frontend_name}}-run
+        name: "Run unit tests"
+        run: |
+          npm test
+        env:
+          CI: true
