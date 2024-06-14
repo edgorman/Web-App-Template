@@ -1,9 +1,23 @@
 # Web App Template
 
-A cookiecutter template for generating a simple web app that is deployable to Google Cloud Platform.
+A cookiecutter template for deploying a simple web app to the cloud.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
 
 It has the following features:
-1. ...
+
+1. Python backend with configurable version
+2. Node frontend with configurable version
+3. Docker images deployable via Helm charts
+4. Google Cloud Platform infrastructure via Terraform
+5. Automated testing and deployment via GitHub actions
 
 ## Usage
 
