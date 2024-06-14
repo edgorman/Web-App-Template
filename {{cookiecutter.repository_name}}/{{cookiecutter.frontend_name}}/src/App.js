@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [data, setData] = useState(null);
+  const [version, setVersion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,7 +14,7 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        setData(data);
+        setVersion(data["version"]);
         setLoading(false);
       })
       .catch((error) => {
@@ -33,8 +33,9 @@ function App() {
 
   return (
     <div>
-      <h1>{{cookiecutter.frontend_name}}:</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>
+        {{cookiecutter.frontend_name}}<small>version={version}</small>
+      </pre>
     </div>
   );
 }
