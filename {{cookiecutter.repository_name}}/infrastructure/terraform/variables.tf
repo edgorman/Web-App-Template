@@ -11,7 +11,7 @@ variable "image_tag" {
 variable "region" {
   description = "The GCP region"
   type        = string
-  default     = "{{cookiecutter.gcp_region_dev}}"
+  default     = "{{cookiecutter.gcp_region}}"
 }
 
 variable "cluster_name" {
