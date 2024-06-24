@@ -12,6 +12,7 @@ jobs:
   terraform-plan-infrastructure:
     name: "Plan the Terraform changes"
     runs-on: ubuntu-latest
+    environment: ${{ "{{" }} github.base_ref {{ "}}" }}
 
     permissions:
       contents: read

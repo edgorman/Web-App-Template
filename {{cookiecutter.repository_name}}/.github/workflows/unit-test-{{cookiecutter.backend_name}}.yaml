@@ -1,12 +1,6 @@
 name: Unit Test {{cookiecutter.backend_name}}
 
 on:
-  push:
-    branches:
-      - {{cookiecutter.dev_branch}}
-      - {{cookiecutter.prod_branch}}
-    paths:
-      - {{cookiecutter.backend_name}}/**
   pull-request:
     branches:
       - {{cookiecutter.dev_branch}}
@@ -18,6 +12,7 @@ jobs:
   unit-test-{{cookiecutter.backend_name}}:
     name: "Unit test the {{cookiecutter.backend_name}} changes"
     runs-on: ubuntu-latest
+    environment: ${{ "{{" }} github.base_ref {{ "}}" }}
 
     steps:
       - id: unit-test-{{cookiecutter.backend_name}}-checkout

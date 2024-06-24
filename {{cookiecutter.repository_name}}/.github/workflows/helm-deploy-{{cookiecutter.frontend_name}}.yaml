@@ -13,6 +13,7 @@ jobs:
   helm-deploy-{{cookiecutter.frontend_name}}:
     name: "Deploy {{cookiecutter.frontend_name}} via Helm"
     runs-on: ubuntu-latest
+    environment: ${{ "{{" }} github.ref_name {{ "}}" }}
 
     steps:
       id: helm-deploy-{{cookiecutter.frontend_name}}-checkout
