@@ -4,22 +4,16 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
 }
 
-resource "kubernetes_namespace" "{{cookiecutter.gcp_frontend_namespace}}" {
+resource "kubernetes_namespace" "default" {
   metadata {
-    name = "{{cookiecutter.gcp_frontend_namespace}}"
-  }
-}
-
-resource "kubernetes_namespace" "{{cookiecutter.gcp_backend_namespace}}" {
-  metadata {
-    name = "{{cookiecutter.gcp_backend_namespace}}"
+    name = "default"
   }
 }
 
 resource "kubernetes_deployment" "{{cookiecutter.gcp_frontend_deployment_name}}" {
   metadata {
     name      = "{{cookiecutter.gcp_frontend_deployment_name}}"
-    namespace = kubernetes_namespace.{{cookiecutter.gcp_frontend_namespace}}.metadata[0].name
+    namespace = "kubernetes_namespace.default.metadata[0].name"
   }
 
   spec {
@@ -51,7 +45,7 @@ resource "kubernetes_deployment" "{{cookiecutter.gcp_frontend_deployment_name}}"
 resource "kubernetes_service" "{{cookiecutter.gcp_frontend_service_name}}" {
   metadata {
     name      = "{{cookiecutter.gcp_frontend_service_name}}"
-    namespace = "kubernetes_namespace.{{cookiecutter.gcp_frontend_namespace}}.metadata[0].name"
+    namespace = "kubernetes_namespace.default.metadata[0].name"
   }
 
   spec {
@@ -71,7 +65,7 @@ resource "kubernetes_service" "{{cookiecutter.gcp_frontend_service_name}}" {
 resource "kubernetes_deployment" "{{cookiecutter.gcp_backend_deployment_name}}" {
   metadata {
     name      = "{{cookiecutter.gcp_backend_deployment_name}}"
-    namespace = kubernetes_namespace.{{cookiecutter.gcp_backend_namespace}}.metadata[0].name
+    namespace = "kubernetes_namespace.default.metadata[0].name"
   }
 
   spec {
@@ -103,7 +97,7 @@ resource "kubernetes_deployment" "{{cookiecutter.gcp_backend_deployment_name}}" 
 resource "kubernetes_service" "{{cookiecutter.gcp_backend_service_name}}" {
   metadata {
     name      = "{{cookiecutter.gcp_backend_service_name}}"
-    namespace = "kubernetes_namespace.{{cookiecutter.gcp_backend_namespace}}.metadata[0].name"
+    namespace = "kubernetes_namespace.default.metadata[0].name"
   }
 
   spec {

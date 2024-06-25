@@ -6,7 +6,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:{{cookiecutter.backend_port}}")
+    fetch(process.env.REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

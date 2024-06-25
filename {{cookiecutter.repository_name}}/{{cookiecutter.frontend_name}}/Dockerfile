@@ -1,6 +1,10 @@
 # Use an official Node.js runtime as a parent image
 FROM node:{{cookiecutter.frontend_node_version}}-alpine
 
+# Set up environment variables
+ARG REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS
+ENV REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS ${REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS}
+
 # Set the working directory in the container
 WORKDIR /app
 

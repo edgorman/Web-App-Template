@@ -23,7 +23,7 @@ jobs:
     - id: helm-test-{{cookiecutter.frontend_name}}-build
       name: "Build Docker image"
       run: |
-        docker build {{cookiecutter.frontend_name}}/. -t europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:{{ "${{" }} vars.IMAGE_TAG {{ "}}" }} .
+        docker build {{cookiecutter.frontend_name}}/. -t europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:{{ "${{" }} vars.IMAGE_TAG {{ "}}" }} . --build-arg REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS="TODO"
 
     - id: helm-test-{{cookiecutter.frontend_name}}-setup-helm
       name: "Set up Helm"

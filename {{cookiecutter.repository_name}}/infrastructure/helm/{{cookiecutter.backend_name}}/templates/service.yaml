@@ -9,7 +9,7 @@ spec:
   type: {{ "{{" }} .Values.service.type {{ "}}" }}
   ports:
     - port: {{ "{{" }} .Values.service.port {{ "}}" }}
-      targetPort: {{cookiecutter.backend_port}}
+      targetPort: {{ "{{" }} .Values.service.port {{ "}}" }}
   selector:
     app: {{ "{{" }} .Chart.Name {{ "}}" }}
     release: {{ "{{" }} .Release.Name {{ "}}" }}

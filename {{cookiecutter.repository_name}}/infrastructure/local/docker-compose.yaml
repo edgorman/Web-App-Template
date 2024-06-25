@@ -17,6 +17,8 @@ services:
         {{cookiecutter.frontend_name}}
       dockerfile:
         Dockerfile
+      args:
+        - REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS="http://localhost:{{cookiecutter.backend_port}}"
     image: {{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:local
     ports:
       - {{cookiecutter.frontend_port}}:{{cookiecutter.frontend_port}}
