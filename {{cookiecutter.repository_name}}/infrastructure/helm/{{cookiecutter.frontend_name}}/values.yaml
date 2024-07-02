@@ -9,10 +9,6 @@ service:
   type: ClusterIP
   port: {{cookiecutter.frontend_port}}
 
-config:
-  {{cookiecutter.backend_name}}_host: "http://localhost"
-  {{cookiecutter.backend_name}}_port: {{cookiecutter.backend_port}}
-
 resources:
   limits:
     cpu: 100m
