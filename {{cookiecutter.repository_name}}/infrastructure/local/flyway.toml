@@ -1,0 +1,5 @@
+[environments.default]
+flyway.url = "jdbc:postgresql://postgres:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}"
+flyway.schemas = ["public"]
+flyway.user = "{{cookiecutter.local_database_username}}"
+flyway.password = "{{cookiecutter.local_database_password}}"

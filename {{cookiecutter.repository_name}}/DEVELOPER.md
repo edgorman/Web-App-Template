@@ -76,6 +76,34 @@ And to cleanup Docker afterwards:
 docker image remove {{cookiecutter.frontend_image_name}}:local -f
 ```
 
+### {{cookiecutter.database_name}}
+
+The {{cookiecutter.database_name}} database uses PostgreSQL {{cookiecutter.database_postgres_version}}, so make sure that is installed.
+
+To set up your database locally:
+
+```bash
+# TODO
+```
+
+Then apply the flyway migrations:
+
+```bash
+# TODO
+```
+
+You can connect to the database by running the following:
+
+```bash
+psql -h 127.0.0.1 -p {{cookiecutter.local_database_port}} -d {{cookiecutter.database_name}} -U {{cookiecutter.local_database_username}}
+# Then enter the password: {{cookiecutter.local_database_password}}
+```
+
+And to cleanup postgres afterwards:
+```bash
+# TODO
+```
+
 ### Infrastructure
 
 Deployment is performed using Terraform and Helm charts. The idea is that this is fully automated by CI/CD so no manual deployments are necessary.
@@ -96,7 +124,13 @@ docker-compose -f infrastructure/local/docker-compose.yaml up -d
 
 If you need to add any Docker build arguments you can do so in the `docker-compose.yaml` file under each `services.<your-service>.build.args`
 
-To delete the local services, run the following:
+To spin down the services locally, run the following:
+
+```bash
+docker-compose -f infrastructure/local/docker-compose.yaml down -v
+```
+
+To delete the local services fully, run the following:
 
 ```bash
 docker-compose -f infrastructure/local/docker-compose.yaml down -v --remove-orphans --rmi all

@@ -12,6 +12,11 @@
     "backend_port": "5000",
     "backend_image_name": "{{cookiecutter.backend_name}}-image",
     "backend_python_version": "3.11",
+    "database_postgres_version": "15",
+    "database_name": "postgres",
+    "local_database_port": 5432,
+    "local_database_username": "postgres",
+    "local_database_password": "{{cookiecutter.local_database_username}}",
     "gcp_region": "europe-west1-b",
     "gcp_cluster_name": "{{cookiecutter.repository_name}}-cluster",
     "gcp_frontend_deployment_name": "{{cookiecutter.frontend_name}}-deployment",
@@ -19,5 +24,7 @@
     "gcp_frontend_service_name": "{{cookiecutter.frontend_name}}-service",
     "gcp_backend_service_name": "{{cookiecutter.backend_name}}-service",
     "tf_cloud_organization": "{{cookiecutter.repository_name}}-organization",
-    "tf_cloud_workspace": "{{cookiecutter.repository_name}}-workspace"
+    "tf_cloud_workspace": "{{cookiecutter.repository_name}}-workspace",
+    "gcp_database_host": "TBD",
+    "gcp_database_port": "TBD"
 }

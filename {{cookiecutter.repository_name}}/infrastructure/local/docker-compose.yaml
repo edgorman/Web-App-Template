@@ -1,6 +1,32 @@
 version: "3.8"
 services:
 
+  postgres:
+    image: postgres:{{cookiecutter.database_postgres_version}}-alpine
+    volumes:
+      - /tmp/{{cookiecutter.repository_name}}/{{cookiecutter.database_name}}:/var/lib/postgresql/data
+    ports:
+      - {{cookiecutter.local_database_port}}:{{cookiecutter.local_database_port}}
+    environment:
+      - POSTGRES_DB={{cookiecutter.database_name}}
+      - POSTGRES_USER={{cookiecutter.local_database_username}}
+      - POSTGRES_PASSWORD={{cookiecutter.local_database_password}}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "{{cookiecutter.local_database_username}}"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
+
+  flyway:
+    image: redgate/flyway
+    command: migrate
+    volumes:
+      - ../postgres/migrations:/flyway/sql
+      - ./:/flyway/conf
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   {{cookiecutter.backend_name}}:
     build:
       context:
@@ -10,6 +36,8 @@ services:
     image: {{cookiecutter.backend_name}}/{{cookiecutter.backend_image_name}}:local
     ports:
       - {{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}
+    depends_on:
+      - flyway
 
   {{cookiecutter.frontend_name}}:
     build:
@@ -22,3 +50,5 @@ services:
     image: {{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:local
     ports:
       - {{cookiecutter.frontend_port}}:{{cookiecutter.frontend_port}}
+    depends_on:
+      - flyway

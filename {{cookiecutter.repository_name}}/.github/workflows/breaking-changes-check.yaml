@@ -19,14 +19,14 @@ jobs:
       - id: breaking-changes-check-list
         name: "List the changed files"
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}:base
-          git diff --name-only base...${{ github.sha }} > changed_files.txt
+          git fetch origin ${{ "{{" }} github.event.pull_request.base.ref {{ "}}" }}:base
+          git diff --name-only base...${{ "{{" }} github.sha {{ "}}" }} > changed_files.txt
           echo "changed-files=$(cat changed_files.txt)" >> $GITHUB_ENV
 
       - id: breaking-changes-check-subfolders
         name: "Check for changes in subfolders"
         run: |
-          CHANGED_FILES=$(echo ${{ env.changed-files }})
+          CHANGED_FILES=$(echo ${{ "{{" }} env.changed-files {{ "}}" }})
           SERVICES_CHANGED=false
           INFRASTRUCTURE_CHANGED=false
 
