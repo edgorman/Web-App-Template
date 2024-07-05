@@ -18,11 +18,10 @@ services:
       retries: 2
 
   flyway:
-    image: redgate/flyway
-    command: migrate
+    image: flyway/flyway:10-alpine
+    command: migrate -url="jdbc:postgresql://postgres:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}" -user="{{cookiecutter.local_database_username}}" -password="{{cookiecutter.local_database_password}}"
     volumes:
       - ../postgres/migrations:/flyway/sql
-      - ./:/flyway/conf
     depends_on:
       postgres:
         condition: service_healthy

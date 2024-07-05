@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:{{cookiecutter.backend_python_version}}-slim
+FROM python:{{cookiecutter.backend_python_version}}-alpine
 
 # Set the working directory in the container
 WORKDIR /app

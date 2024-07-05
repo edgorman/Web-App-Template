@@ -19,5 +19,5 @@ api.add_middleware(
 async def root():
     return {
         "name": "{{cookiecutter.backend_name}}",
-        "version": "TODO"
+        "version": "0.1.0"
     }

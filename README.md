@@ -1,6 +1,6 @@
 # Web App Template
 
-A cookiecutter template for deploying a simple web app to the cloud.
+A cookiecutter template for deploying a simple web app to the cloud. The key idea is that you should be able to follow the instructions exactly and be able to deploy the local, dev, and prod environments of this project without any extra work.
 
 ## Table of Contents
 
@@ -16,8 +16,9 @@ It has the following features:
 1. Python backend with configurable version
 2. Node frontend with configurable version
 3. Docker images deployable via Helm charts
-4. Google Cloud Platform infrastructure via Terraform
-5. Automated testing and deployment via GitHub actions
+4. Postgres database with Flyway migrations
+5. Google Cloud Platform infrastructure via Terraform
+6. Automated testing and deployment via GitHub actions
 
 ## Usage
 
