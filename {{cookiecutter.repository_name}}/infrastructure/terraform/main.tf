@@ -5,7 +5,7 @@ resource "google_container_cluster" "primary" {
   initial_node_count = 1
 
   node_config {
-    machine_type = "e2-micro"
+    machine_type = var.machine_type
     oauth_scopes = [
       "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
@@ -24,7 +24,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
   node_config {
     preemptible  = false
-    machine_type = "e2-micro"
+    machine_type = var.machine_type
   }
 }
 

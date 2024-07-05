@@ -43,3 +43,9 @@ variable "{{cookiecutter.backend_name}}_port" {
   type        = string
   default     = "{{cookiecutter.backend_port}}"
 }
+
+variable "machine_type" {
+  description = "Type of machine for services"
+  type        = string
+  default     = "e2-micro"
+}
