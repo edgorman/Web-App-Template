@@ -30,16 +30,16 @@ password={{cookiecutter.local_database_password}}
 To validate a migration, run the following:
 
 ```bash
-flyway validate -configFiles=infrastructure/postgres/config/flyway.local.toml
+flyway validate -X -configFiles=infrastructure/postgres/config/flyway.toml -environment=local -ignoreMigrationPatterns='*:pending'
 ```
 
 To run a migration, run the following:
 
 ```bash
-flyway migrate -configFiles=infrastructure/postgres/config/flyway.local.toml
+flyway migrate -X -configFiles=infrastructure/postgres/config/flyway.toml -environment=local
 ```
 
-To run these commands against the cloud deployments, update the dev and prod configuration files in `infrastructure/postgres/config/` and then use the commands as shown above.
+To run these commands against the cloud deployments, update the environment configuration in file `infrastructure/postgres/config/flyway.toml` and then pass `dev` or `prod` in the environment parameter. 
 
 ## Development
 
@@ -49,3 +49,5 @@ To add a new migration, create a new folder with an incremented semver name, and
 
 1. a SQL file that does the operation (starting with the letter `V`)
 2. a SQL file that undoes the operation (starting with the letter `U`)
+
+You may see an error message about undo migrations not being recognised by Flyway, similar to the error [reported here](https://stackoverflow.com/q/74722502). This seems to be a bug, hopefully it is fixed in future community edition releases.

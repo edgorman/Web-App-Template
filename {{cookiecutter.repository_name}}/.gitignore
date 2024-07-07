@@ -1,3 +1,6 @@
-# Custom gitignore rules
+# Ignore key and env files
 *key.*
 *.env.*
+
+# Ignore changes to flyway configuration
+flyway.toml

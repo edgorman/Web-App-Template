@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:{{cookiecutter.database_postgres_version}}-alpine
     volumes:
-      - /tmp/{{cookiecutter.repository_name}}/{{cookiecutter.database_name}}:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data
     ports:
       - {{cookiecutter.local_database_port}}:{{cookiecutter.local_database_port}}
     environment:
@@ -19,9 +19,10 @@ services:
 
   flyway:
     image: flyway/flyway:10-alpine
-    command: migrate -url="jdbc:postgresql://postgres:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}" -user="{{cookiecutter.local_database_username}}" -password="{{cookiecutter.local_database_password}}"
+    command: migrate -environment=docker -X
     volumes:
       - ../postgres/migrations:/flyway/sql
+      - ../postgres/config:/flyway/conf
     depends_on:
       postgres:
         condition: service_healthy
