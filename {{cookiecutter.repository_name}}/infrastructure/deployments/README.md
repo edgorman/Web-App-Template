@@ -1,6 +1,6 @@
-# Helm
+# Deployments
 
-This subdirectory stores the Helm configuration for services in this project.
+This subdirectory stores the configuration of deployments for services in this project.
 
 Generally you will not need to run Helm directly, as all cloud infrastructure will be handled through Terraform.
 
@@ -19,7 +19,7 @@ chmod 700 get_helm.sh
 To lint a Helm chart, run:
 
 ```bash
-helm lint /path/tp/helm/chart
+helm lint /infrastructure/deployments/path/to/helm/chart
 ```
 
 ## Development

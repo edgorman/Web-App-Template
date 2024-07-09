@@ -1,4 +1,4 @@
-name: Helm Test {{cookiecutter.frontend_name}}
+name: Deployment Test {{cookiecutter.frontend_name}}
 
 on:
   pull-request:
@@ -7,30 +7,30 @@ on:
       - {{cookiecutter.prod_branch}}
     paths:
       - {{cookiecutter.frontend_name}}/**
-      - infrastructure/helm/{{cookiecutter.frontend_name}}/**
+      - infrastructure/deployments/{{cookiecutter.frontend_name}}/**
 
 jobs:
-  helm-test-{{cookiecutter.frontend_name}}:
+  deployment-test-{{cookiecutter.frontend_name}}:
     name: "Test {{cookiecutter.frontend_name}} deployment"
     runs-on: ubuntu-latest
     environment: ${{ "{{" }} github.base_ref {{ "}}" }}
 
     steps:
-    - id: helm-test-{{cookiecutter.frontend_name}}-checkout
+    - id: deployment-test-{{cookiecutter.frontend_name}}-checkout
       name: "Checkout repository"
       uses: actions/checkout@v3
 
-    - id: helm-test-{{cookiecutter.frontend_name}}-build
+    - id: deployment-test-{{cookiecutter.frontend_name}}-build
       name: "Build Docker image"
       run: |
         docker build {{cookiecutter.frontend_name}}/. -t europe-docker.pkg.dev/{{ "${{" }} secrets.GCP_PROJECT_ID {{ "}}" }}/{{cookiecutter.frontend_name}}/{{cookiecutter.frontend_image_name}}:{{ "${{" }} vars.IMAGE_TAG {{ "}}" }} . --build-arg REACT_APP_{{cookiecutter.backend_name|upper}}_ADDRESS="TODO"
 
-    - id: helm-test-{{cookiecutter.frontend_name}}-setup-helm
+    - id: deployment-test-{{cookiecutter.frontend_name}}-setup-helm
       name: "Set up Helm"
       run: |
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-    - id: helm-test-{{cookiecutter.frontend_name}}-deploy
+    - id: deployment-test-{{cookiecutter.frontend_name}}-deploy
       name: Helm deploy
       run: |
-        helm lint infrastructure/helm/{{cookiecutter.frontend_name}}/. 
+        helm lint infrastructure/deployments/{{cookiecutter.frontend_name}}/. 

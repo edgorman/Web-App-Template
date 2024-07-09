@@ -10,9 +10,11 @@ To deploy individual services or infrastrucure, please refer to each of the foll
 
 1. [{{cookiecutter.backend_name}}](\{\{cookiecutter.backend_name\}\}/README.md)
 2. [{{cookiecutter.frontend_name}}](\{\{cookiecutter.frontend_name\}\}/README.md)
-3. [Helm](infrastructure/helm/README.md)
-4. [Postgres](infrastructure/postgres/README.md)
-5. [Terraform](infrastructure/terraform/README.md)
+3. [CICD](infrastructure/cicd/README.md)
+4. [Cloud](infrastructure/cloud/README.md)
+5. [Deployments](infrastructure/deployments/README.md)
+6. [Database](infrastructure/database/README.md)
+7. [Workflows](infrastructure/workflows/README.md)
 
 ## Cloud deployment
 

@@ -1,0 +1,24 @@
+# See https://documentation.red-gate.com/fd/parameters-224919673.html for a list of parameters
+[flyway]
+locations = ["filesystem:/flyway/sql", "filesystem:infrastructure/database/migrations"]
+validateMigrationNaming = "true"
+
+[environments.local]
+url = "jdbc:postgresql://localhost:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}"
+user = "{{cookiecutter.local_database_username}}"
+password = "{{cookiecutter.local_database_password}}"
+
+[environments.docker]
+url = "jdbc:postgresql://postgres:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}"
+user = "{{cookiecutter.local_database_username}}"
+password = "{{cookiecutter.local_database_password}}"
+
+[environments.dev]
+url = ""
+user = ""
+password = ""
+
+[environments.prod]
+url = ""
+user = ""
+password = ""

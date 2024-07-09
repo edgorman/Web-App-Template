@@ -1,6 +1,6 @@
-# Terraform
+# Cloud
 
-This subdirectory stores the Terraform configuration for this project's cloud deployment.
+This subdirectory stores the cloud configuration for this project using Terraform.
 
 Generally you will not need to run Terraform directly, as all operations will be handled through CICD.
 

@@ -1,6 +1,6 @@
-# Postgres
+# Database
 
-This subdirectory stores the Postgres and Flyway config/migration scripts.
+This subdirectory stores the Database config and migration scripts.
 
 Generally you will not need to run Postgres/Flyway directly, as all database operations will be handled through CI/CD.
 
@@ -30,16 +30,16 @@ password={{cookiecutter.local_database_password}}
 To validate a migration, run the following:
 
 ```bash
-flyway validate -X -configFiles=infrastructure/postgres/config/flyway.toml -environment=local -ignoreMigrationPatterns='*:pending'
+flyway validate -X -configFiles=infrastructure/database/config/flyway.toml -environment=local -ignoreMigrationPatterns='*:pending'
 ```
 
 To run a migration, run the following:
 
 ```bash
-flyway migrate -X -configFiles=infrastructure/postgres/config/flyway.toml -environment=local
+flyway migrate -X -configFiles=infrastructure/database/config/flyway.toml -environment=local
 ```
 
-To run these commands against the cloud deployments, update the environment configuration in file `infrastructure/postgres/config/flyway.toml` and then pass `dev` or `prod` in the environment parameter. 
+To run these commands against the cloud deployments, update the environment configuration in file `infrastructure/database/config/flyway.toml` and then pass `dev` or `prod` in the environment parameter. 
 
 ## Development
 
