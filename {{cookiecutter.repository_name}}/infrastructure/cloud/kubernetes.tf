@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "{{cookiecutter.gcp_frontend_deployment_name}}"
       spec {
         container {
           name  = "{{cookiecutter.frontend_name}}"
-          image = ".${var.{{cookiecutter.frontend_name}}_image}:.${var.image_tag}"
+          image = ".${var.{{cookiecutter.frontend_name}}_image}:.${var.image_env_tag}"
         }
       }
     }
@@ -87,7 +87,7 @@ resource "kubernetes_deployment" "{{cookiecutter.gcp_backend_deployment_name}}" 
       spec {
         container {
           name  = "{{cookiecutter.backend_name}}"
-          image = ".${var.{{cookiecutter.backend_name}}_image}:.${var.image_tag}"
+          image = ".${var.{{cookiecutter.backend_name}}_image}:.${var.image_env_tag}"
         }
       }
     }

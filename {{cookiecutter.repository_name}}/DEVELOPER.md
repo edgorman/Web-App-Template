@@ -64,6 +64,20 @@ And for each environment, you will need to set up the following variables/secret
 
 8. Next you can make a pull request against the `{{cookiecutter.dev_branch}}` branch to trigger a release to the develop environment.
 
-9. Finally you can make a pull request against the `{{cookiecutter.prod_branch}}` branch to trigger a release to the production environment.
+9. Once the infrastructure has been deployed, you can extract the argocd admin user credentials from a kubernetes secret:
 
-10. Sit back and enjoy the website!
+```bash
+gcloud container clusters get-credentials {{cookiecutter.repository_name}}-cluster --zone {{cookiecutter.gcp_region}} --project {{cookiecutter.gcp_project_name_dev}}
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
+```
+
+10. Finally you can make a pull request against the `{{cookiecutter.prod_branch}}` branch to trigger a release to the production environment.
+
+11. Similarly to before you can extract the argocs admin user credentials from a kubernetes secret:
+
+```bash
+gcloud container clusters get-credentials {{cookiecutter.repository_name}}-cluster --zone {{cookiecutter.gcp_region}} --project {{cookiecutter.gcp_project_name_prod}}
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
+```
+
+10. Sit back and enjoy the web app! :)

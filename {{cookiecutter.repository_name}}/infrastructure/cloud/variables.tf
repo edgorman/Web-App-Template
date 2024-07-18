@@ -3,9 +3,20 @@ variable "project_id" {
   type        = string
 }
 
-variable "image_tag" {
-  description = "The image tag to use"
+variable "image_env_tag" {
+  description = "The image tag to use for dev/prod environment"
   type        = string
+}
+
+variable "github_webhook_secret" {
+  description = "The webhook secret for connecting to GitHub"
+  type        = string
+}
+
+variable "github_repo_url" {
+  description = "The url of the GitHub repository"
+  type        = string
+  default     = "https://github.com/{{cookiecutter.repository_owner}}/{{cookiecutter.repository_name}}"
 }
 
 variable "region" {

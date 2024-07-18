@@ -41,3 +41,13 @@ resource "google_compute_firewall" "default" {
 resource "google_container_registry" "{{cookiecutter.frontend_name}}_registry" {}
 
 resource "google_container_registry" "{{cookiecutter.backend_name}}_registry" {}
+
+resource "google_project_service" "container" {
+  project = var.project_id
+  service = "container.googleapis.com"
+}
+
+resource "google_project_service" "compute" {
+  project = var.project_id
+  service = "compute.googleapis.com"
+}

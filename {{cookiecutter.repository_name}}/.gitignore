@@ -7,3 +7,6 @@ flyway.toml
 
 # Ignore temporary data for local deployments
 infrastructure/local/tmp
+
+# Ignore changes to github webhook
+infrastructure/cloud/scripts/github_webhook.sh
