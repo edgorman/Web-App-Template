@@ -4,3 +4,6 @@
 
 # Ignore changes to flyway configuration
 flyway.toml
+
+# Ignore temporary data for local deployments
+infrastructure/local/tmp

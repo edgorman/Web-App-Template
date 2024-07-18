@@ -1,10 +1,10 @@
 version: "3.8"
 services:
 
-  postgres:
+  {{cookiecutter.database_name}}:
     image: postgres:{{cookiecutter.database_postgres_version}}-alpine
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./tmp/{{cookiecutter.database_name}}:/var/lib/postgresql/data
     ports:
       - {{cookiecutter.local_database_port}}:{{cookiecutter.local_database_port}}
     environment:
@@ -17,14 +17,14 @@ services:
       timeout: 1s
       retries: 2
 
-  flyway:
+  {{cookiecutter.database_name}}-migrations:
     image: flyway/flyway:10-alpine
-    command: migrate -environment=docker -X
+    command: migrate -environment=docker
     volumes:
-      - ../postgres/migrations:/flyway/sql
-      - ../postgres/config:/flyway/conf
+      - ../database/migrations:/flyway/sql
+      - ../database/config:/flyway/conf
     depends_on:
-      postgres:
+      {{cookiecutter.database_name}}:
         condition: service_healthy
 
   {{cookiecutter.backend_name}}:
@@ -37,7 +37,7 @@ services:
     ports:
       - {{cookiecutter.backend_port}}:{{cookiecutter.backend_port}}
     depends_on:
-      - flyway
+      - {{cookiecutter.database_name}}-migrations
 
   {{cookiecutter.frontend_name}}:
     build:
@@ -51,4 +51,4 @@ services:
     ports:
       - {{cookiecutter.frontend_port}}:{{cookiecutter.frontend_port}}
     depends_on:
-      - flyway
+      - {{cookiecutter.database_name}}-migrations

@@ -9,7 +9,7 @@ user = "{{cookiecutter.local_database_username}}"
 password = "{{cookiecutter.local_database_password}}"
 
 [environments.docker]
-url = "jdbc:postgresql://postgres:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}"
+url = "jdbc:postgresql://{{cookiecutter.database_name}}:{{cookiecutter.local_database_port}}/{{cookiecutter.database_name}}"
 user = "{{cookiecutter.local_database_username}}"
 password = "{{cookiecutter.local_database_password}}"
 
