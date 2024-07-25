@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: cloud-template
+spec:
+  templates:
+
+  - name: plan-cloud-template
+    inputs:
+      parameters:
+      - name: # ...
+    # ...  
+
+  - name: apply-cloud-template
+    inputs:
+      parameters:
+      - name: # ...
+    # ...  

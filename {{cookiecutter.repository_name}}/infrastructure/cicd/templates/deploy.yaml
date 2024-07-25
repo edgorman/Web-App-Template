@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: deploy-template
+spec:
+  templates:
+
+  - name: helm-deploy-template
+    inputs:
+      parameters:
+      - name: # ...
+    # ...  

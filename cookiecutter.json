@@ -18,8 +18,6 @@
     "local_database_port": 5432,
     "local_database_username": "postgres",
     "local_database_password": "{{cookiecutter.local_database_username}}",
-    "gcp_project_name_dev": "{{cookiecutter.repository_name}}-dev",
-    "gcp_project_name_prod": "{{cookiecutter.repository_name}}-prod",
     "gcp_region": "europe-west1-b",
     "gcp_cluster_name": "{{cookiecutter.repository_name}}-cluster",
     "gcp_frontend_deployment_name": "{{cookiecutter.frontend_name}}-deployment",

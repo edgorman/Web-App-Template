@@ -30,7 +30,7 @@ services:
   {{cookiecutter.backend_name}}:
     build:
       context:
-        {{cookiecutter.backend_name}}
+        services/{{cookiecutter.backend_name}}
       dockerfile:
         Dockerfile
     image: {{cookiecutter.backend_name}}/{{cookiecutter.backend_image_name}}:local
@@ -42,7 +42,7 @@ services:
   {{cookiecutter.frontend_name}}:
     build:
       context:
-        {{cookiecutter.frontend_name}}
+        services/{{cookiecutter.frontend_name}}
       dockerfile:
         Dockerfile
       args:

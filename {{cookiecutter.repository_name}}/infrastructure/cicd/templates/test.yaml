@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: test-template
+spec:
+  templates:
+
+  - name: python-test-template
+    inputs:
+      parameters:
+      - name: subdirectory
+      - name: test-directory
+        value: "tests"
+    container:
+      image: python:{{cookiecutter.backend_python_version}}-alpine
+      command: [sh, -c]
+      args:
+      - |
+        apt-get update && apt-get install -y git
+        git clone https://github.com/{{cookiecutter.repository_owner}}/{{cookiecutter.repository_name}}
+        cd {{cookiecutter.repository_name}}/{{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+        python -m pip install -r requirements.txt
+        python -m pytest {{ "{{" }}inputs.parameters.test-directory{{ "}}" }} -svv
+
+  - name: node-test-template
+    inputs: 
+      parameters:
+      - name: subdirectory
+    container:
+      image: node:{{cookiecutter.frontend_node_version}}-alpine
+      comand: [sh, -c]
+      args:
+      - |
+        apt-get update && apt-get install -y git
+        git clone https://github.com/{{cookiecutter.repository_owner}}/{{cookiecutter.repository_name}}
+        cd {{cookiecutter.repository_name}}/{{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+        npm install
+        npm test

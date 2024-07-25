@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: database-template
+spec:
+  templates:
+
+  - name: validate-database-template
+    inputs:
+      parameters:
+      - name: # ...
+    # ...  
+
+  - name: update-database-template
+    inputs:
+      parameters:
+      - name: # ...
+    # ...  

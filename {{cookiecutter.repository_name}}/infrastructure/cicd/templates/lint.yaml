@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: lint-template
+spec:
+  templates:
+
+  - name: python-lint-template
+    inputs:
+      parameters:
+      - name: subdirectory
+    container:
+      image: python:{{cookiecutter.backend_python_version}}-alpine
+      command: [sh, -c]
+      args:
+      - |
+        apt-get update && apt-get install -y git
+        git clone https://github.com/{{cookiecutter.repository_owner}}/{{cookiecutter.repository_name}}
+        cd {{cookiecutter.repository_name}}/{{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+        python -m pip install -r requirements.txt
+        python -m flake8
+
+  - name: node-lint-template
+    inputs:
+      parameters:
+      - name: subdirectory
+    container:
+      image: node:{{cookiecutter.frontend_node_version}}-alpine
+      comand: [sh, -c]
+      args:
+      - |
+        apt-get update && apt-get install -y git
+        git clone https://github.com/{{cookiecutter.repository_owner}}/{{cookiecutter.repository_name}}
+        cd {{cookiecutter.repository_name}}/{{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+        npm install
+        npm lint
+
+  - name: argo-lint-template
+    inputs:
+      parameters:
+      - name: subdirectory
+    container:
+      image: argoproj/argocd:v2.6.15
+      comand: [sh, -c]
+      args:
+      - |
+        argo lint {{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+
+  - name: sql-lint-template
+    inputs:
+      parameters: 
+      - name: subdirectory
+    container:
+      image: sqlfluff/sqlfluff:3.1.0
+      comand: [sh, -c]
+      args:
+      - |
+        sqlfluff lint {{ "{{" }}inputs.parameters.subdirectory{{ "}}" }}
+
+  - name: terraform-lint-template
+    inputs:
+      parameters:
+      - name: subdirectory
+    container:
+      image: ghcr.io/terraform-linters/tflint
+      comand: [sh, -c]
+      args:
+      - |
+        tflint --chdir={{ "{{" }}inputs.parameters.subdirectory{{ "}}" }} --recursive
